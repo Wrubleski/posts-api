@@ -1,0 +1,282 @@
+openapi: 3.0.0
+
+info:
+  version: 0.0.1
+  title: "fuerza-posts-api"
+  description: "REST API for Posts management"
+
+tags:
+- name: Posts
+  description: 'CRUD operations on Posts'
+
+servers:
+  - url: "http://localhost:3000/api"
+    description: "Local environment"
+
+paths:
+  /posts:
+    post:
+      tags: 
+        - Posts
+      summary: "Create a Post"
+      description: "Save a Post object into the database"
+      operationId: addPost
+      requestBody:
+        description: "All fields are required"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+
+      responses:
+        '201':
+          description: 'Return the created Post object'
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Post'
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+        '400':
+          description: 'Validation Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                response:
+                  value:
+                    error: 'Something went wrong. Please try again latter.'
+                    from: "fuerza-posts-api"
+                    timestamp: "1660323373"
+    get:
+      tags: 
+        - Posts
+      summary: "List Posts"
+      description: "Retrieve multiple Posts using pagination"
+      operationId: getPaginatedPosts
+      parameters:
+        - in: query
+          name: index
+          description: "Pagination index"
+          required: true
+          schema:
+            type: integer
+          example: 0
+        - in: query
+          name: size
+          description: "Page size"
+          required: true
+          schema:
+            type: integer
+          example: 100
+
+      responses:
+        '200':
+          description: 'Return a paginated list of Posts'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/Post'
+                    - type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+        '400':
+          description: 'Validation Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                response:
+                  value:
+                    error: 'Something went wrong. Please try again latter.'
+                    from: "fuerza-posts-api"
+                    timestamp: "1660323373"
+  /posts/{id}:
+    parameters:
+    - in: path
+      name: id
+      description: "Post's UUID"
+      required: true
+      schema:
+        type: string
+      example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    get:
+      tags: 
+        - Posts
+      summary: "Search Post by UUID"
+      description: "Return a single Post"
+      operationId: getPostsById
+      responses:
+        '200':
+          description: 'Return the post with matching UUID'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/Post'
+                    - type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+        '404':
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: 'Post not found'
+                from: "fuerza-posts-api"
+                timestamp: "1660323373"
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: 'Something went wrong. Please try again latter.'
+                from: "fuerza-posts-api"
+                timestamp: "1660323373"
+    put:
+      tags: 
+        - Posts
+      summary: "Update a Post by UUID"
+      description: "Update the whole document"
+      operationId: updatePost
+      requestBody:
+        description: "All fields are required"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '200':
+          description: 'Return the updated post'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/Post'
+                    - type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+        '400':
+          description: 'Validation Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: 'Post not found'
+                from: "fuerza-posts-api"
+                timestamp: "1660323373"
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: 'Something went wrong. Please try again latter.'
+                from: "fuerza-posts-api"
+                timestamp: "1660323373"  
+    delete:
+      tags: 
+        - Posts
+      summary: "Delete a Post by UUID"
+      description: "Delete the document"
+      operationId: deletePost
+      responses:
+        '204':
+          description: 'Successfully deleted'
+        '404':
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: 'Post not found'
+                from: "fuerza-posts-api"
+                timestamp: "1660323373"
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: 'Something went wrong. Please try again latter.'
+                from: "fuerza-posts-api"
+                timestamp: "1660323373"  
+
+components:
+  schemas:
+    Post:
+      type: object
+      required:
+        - title
+        - body
+        - tags
+      properties:
+        title:
+          type: string
+          example: "Lorem Ipsum"
+        body:
+          type: string
+          example: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+        tags:
+          type: array
+          items:
+            type: string
+          example: ["Finibus Bonorum", "Voluptatum Deleniti"]
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Validation Error. Invalid field [<field>]."
+        from:
+          type: string
+          example: "fuerza-posts-api"
+        timestamp:
+          type: string
+          example: "1660323373"

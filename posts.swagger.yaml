@@ -58,7 +58,7 @@ paths:
                   value:
                     error: 'Something went wrong. Please try again latter.'
                     from: "fuerza-posts-api"
-                    timestamp: "1660323373"
+                    timestamp: 1660323373
     get:
       tags: 
         - Posts
@@ -113,7 +113,7 @@ paths:
                   value:
                     error: 'Something went wrong. Please try again latter.'
                     from: "fuerza-posts-api"
-                    timestamp: "1660323373"
+                    timestamp: 1660323373
   /posts/{id}:
     parameters:
     - in: path
@@ -153,7 +153,7 @@ paths:
               example:
                 error: 'Post not found'
                 from: "fuerza-posts-api"
-                timestamp: "1660323373"
+                timestamp: 1660323373
         '500':
           description: 'Internal server error'
           content:
@@ -163,7 +163,7 @@ paths:
               example:
                 error: 'Something went wrong. Please try again latter.'
                 from: "fuerza-posts-api"
-                timestamp: "1660323373"
+                timestamp: 1660323373
     put:
       tags: 
         - Posts
@@ -206,7 +206,7 @@ paths:
               example:
                 error: 'Post not found'
                 from: "fuerza-posts-api"
-                timestamp: "1660323373"
+                timestamp: 1660323373
         '500':
           description: 'Internal server error'
           content:
@@ -216,7 +216,7 @@ paths:
               example:
                 error: 'Something went wrong. Please try again latter.'
                 from: "fuerza-posts-api"
-                timestamp: "1660323373"  
+                timestamp: 1660323373
     delete:
       tags: 
         - Posts
@@ -235,7 +235,7 @@ paths:
               example:
                 error: 'Post not found'
                 from: "fuerza-posts-api"
-                timestamp: "1660323373"
+                timestamp: 1660323373
         '500':
           description: 'Internal server error'
           content:
@@ -245,7 +245,7 @@ paths:
               example:
                 error: 'Something went wrong. Please try again latter.'
                 from: "fuerza-posts-api"
-                timestamp: "1660323373"  
+                timestamp: 1660323373
 
 components:
   schemas:
@@ -272,11 +272,13 @@ components:
       type: object
       properties:
         error:
-          type: string
-          example: "Validation Error. Invalid field [<field>]."
+          oneOf:
+          - type: object
+          - type: string
+          example: "Validation Error."
         from:
           type: string
           example: "fuerza-posts-api"
         timestamp:
-          type: string
-          example: "1660323373"
+          type: number
+          example: 1660323373

@@ -3,13 +3,13 @@ import { IPost } from "../dtos/post"
 import Posts from "../models/posts"
 import logger from "../helpers/logger"
 import { IError } from "../dtos/error"
-import { Document, Types } from "mongoose"
+import mongoose, { Document, Types } from "mongoose"
 
 const postBuilder: (document: (Document<unknown, any, IPost> & IPost & {
     _id: Types.ObjectId;
   })) => IPost = (document) => {
     const post: IPost = {
-    id: document.id,
+    id: document._id.toString(),
     title: document.title,
     body: document.body,
     tags: document.tags
@@ -39,8 +39,8 @@ export const addPost = async (req: Request, res: Response, next: NextFunction) =
 
 export const getPostsById = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params
-
-  const document = await Posts.findOne({ id: id }).catch(next)
+  
+  const document = await Posts.findById(id).catch(next)
 
   if (!document) {
     logger.error("Not Found", {method: req.method, statusCode: 404})

@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response, Router } from "express";
-import { postValidator, paginationQueryValidator } from "../../helpers/middlewares/validator";
+import { postValidator, paginationQueryValidator, postPathParamValidator } from "../../helpers/middlewares/validator";
 import * as controller from "../../controllers/posts";
 const router: Router = express.Router();
 
@@ -12,8 +12,8 @@ const caller = fn => (req: Request, res: Response, next: NextFunction) =>
 router
   .get("/posts", paginationQueryValidator, caller(controller.getPaginatedPosts))
   .post("/posts", postValidator, caller(controller.addPost))
-  .get("/posts/:id", caller(controller.getPostsById))
-  .put("/posts/:id", postValidator, caller(controller.updatePost))
-  .delete("/posts/:id", caller(controller.deletePost))
+  .get("/posts/:id", postPathParamValidator, caller(controller.getPostsById))
+  .put("/posts/:id", postValidator, postPathParamValidator, caller(controller.updatePost))
+  .delete("/posts/:id", postPathParamValidator, caller(controller.deletePost))
 
 export default router;

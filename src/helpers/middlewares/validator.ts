@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import mongoose from "mongoose";
 import { z, ZodError, typeToFlattenedError } from "zod"
 import { IError } from "../../dtos/error";
 import logger from "../logger";
@@ -80,6 +81,15 @@ export const postValidator = (req: Request, res: Response, next: NextFunction) =
       validationErrorHandler(req, res, errors.fieldErrors)
       return;
     }
+  }
+  next()
+}
+
+export const postPathParamValidator = (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    validationErrorHandler(req, res, "Id must have twenty four hex characters")
+    return;
   }
   next()
 }

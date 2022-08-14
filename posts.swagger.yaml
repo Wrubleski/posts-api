@@ -41,6 +41,7 @@ paths:
                       id:
                         type: string
                         format: uuid
+                        example: 62f96c287f5b9bd22d0bc529
         '400':
           description: 'Validation Error'
           content:
@@ -96,6 +97,7 @@ paths:
                         id:
                           type: string
                           format: uuid
+                          example: 62f96c287f5b9bd22d0bc529
         '400':
           description: 'Validation Error'
           content:
@@ -118,11 +120,14 @@ paths:
     parameters:
     - in: path
       name: id
-      description: "Post's UUID"
+      description: "Twenty four hex characters"
       required: true
       schema:
         type: string
-      example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        description: "twenty four hex characters"
+        minLength: 24
+        maxLength: 24
+      example: "62f96c287f5b9bd22d0bc529"
     get:
       tags: 
         - Posts
@@ -144,6 +149,7 @@ paths:
                         id:
                           type: string
                           format: uuid
+                          example: "62f96c287f5b9bd22d0bc529"
         '404':
           description: 'Not Found'
           content:
@@ -191,6 +197,7 @@ paths:
                         id:
                           type: string
                           format: uuid
+                          example: "62f96c287f5b9bd22d0bc529"
         '400':
           description: 'Validation Error'
           content:

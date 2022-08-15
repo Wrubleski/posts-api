@@ -61,7 +61,7 @@ export const listPosts = async (req: Request, res: Response, _: NextFunction) =>
   const index: number = parseInt(req.query.index as string);
   const size: number =  parseInt(req.query.size as string);
 
-  const documents: Array<IPost> = await Posts.find().skip(index * size).limit(size)
+  const documents: Array<IPost> = await Posts.find().skip(index * size).limit(size) //NOSONAR
 
   const output: IPost[] = documents.map(postBuilder);
   res.status(200).send(output)

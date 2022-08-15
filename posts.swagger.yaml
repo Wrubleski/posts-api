@@ -73,12 +73,14 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 0
           example: 0
         - in: query
           name: size
           description: "Page size"
           required: true
           schema:
+            minimum: 1
             type: integer
           example: 100
 

@@ -10,7 +10,7 @@ const caller = fn => (req: Request, res: Response, next: NextFunction) =>
   Promise.resolve(fn(req, res, next)).catch(next)
 
 router
-  .get("/posts", paginationQueryValidator, caller(controller.getPaginatedPosts))
+  .get("/posts", paginationQueryValidator, caller(controller.listPosts))
   .post("/posts", postValidator, caller(controller.addPost))
   .get("/posts/:id", postPathParamValidator, caller(controller.getPostsById))
   .put("/posts/:id", postValidator, postPathParamValidator, caller(controller.updatePost))

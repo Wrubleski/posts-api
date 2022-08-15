@@ -28,7 +28,7 @@ const expectedPost: jest.Expect = expect.objectContaining({
   tags: expect.any(Array<string>),
 });
 
-describe("Post API Tests", () => {
+describe("Post API Integration Tests", () => {
   const endpoint: string = "/api/posts/";
   let id: string;
   beforeAll(async () => {
@@ -84,47 +84,6 @@ describe("Post API Tests", () => {
         .then(res => {
           expect(res.statusCode).toBe(400);
           expect(res.body.error).toHaveProperty("title");
-        })
-    })
-  })
-
-  describe("getPaginatedPosts Tests", () => {
-    it("should return the requested number of posts", async () => {
-      return request(app)
-        .get(endpoint)
-        .query({size: 5, index: 0})
-        .then(res => {
-          expect(res.statusCode).toBe(200);
-          expect(res.body).toHaveLength(5);
-        })
-    })
-
-    it("should return 400 whem size query parameter is missing", async () => {
-      return request(app)
-        .get(endpoint)
-        .query({index: 1})
-        .then(res => {
-          expect(res.statusCode).toBe(400);
-          expect(res.body.error).toContain("Missing query parameter [size].");
-        })
-    })
-
-    it("should return 400 whem index query parameter is missing", async () => {
-      return request(app)
-        .get(endpoint)
-        .query({size: 2})
-        .then(res => {
-          expect(res.statusCode).toBe(400);
-          expect(res.body.error).toContain("Missing query parameter [index].");
-        })
-    })
-
-    it("should return 400 whem both index and size query parameter are missing", async () => {
-      return request(app)
-        .get(endpoint)
-        .then(res => {
-          expect(res.statusCode).toBe(400);
-          expect(res.body.error).toContain("Missing query parameter [size,index].");
         })
     })
   })
@@ -207,4 +166,75 @@ describe("Post API Tests", () => {
 
   })
 
+  describe("listPosts Tests", () => {
+    it("should return the requested number of posts", async () => {
+      return request(app)
+        .get(endpoint)
+        .query({size: 5, index: 0})
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body).toHaveLength(5);
+        })
+    })
+
+    it("should return 400 whem size query parameter is missing", async () => {
+      return request(app)
+        .get(endpoint)
+        .query({index: 1})
+        .then(res => {
+          expect(res.statusCode).toBe(400);
+          expect(res.body.error).toContain("Missing query parameter [size].");
+        })
+    })
+
+    it("should return 400 whem index query parameter is missing", async () => {
+      return request(app)
+        .get(endpoint)
+        .query({size: 2})
+        .then(res => {
+          expect(res.statusCode).toBe(400);
+          expect(res.body.error).toContain("Missing query parameter [index].");
+        })
+    })
+
+    it("should return 400 whem both index and size query parameter are missing", async () => {
+      return request(app)
+        .get(endpoint)
+        .then(res => {
+          expect(res.statusCode).toBe(400);
+          expect(res.body.error).toContain("Missing query parameter [size,index].");
+        })
+    })
+
+    it("should return empty array whem there's no posts", async () => {
+      return request(app)
+        .get(endpoint)
+        .query({size: 100, index: 3})
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body).toHaveLength(0);
+        })
+    })
+
+    it("should return a validation error whem size or index are not integer", async () => {
+      return request(app)
+        .get(endpoint)
+        .query({size: "foo", index: "bar"})
+        .then(res => {
+          expect(res.statusCode).toBe(400);
+          expect(res.body.error).toContain("Validation error. Size and index must be integer.");
+        })
+    })
+
+    it("should return a validation error whem size or index not positive integers", async () => {
+      return request(app)
+        .get(endpoint)
+        .query({size: -1, index: -5})
+        .then(res => {
+          expect(res.statusCode).toBe(400);
+          expect(res.body.error.size).toContain("size must be positive");
+          expect(res.body.error.index).toContain("index must be positive");
+        })
+    })
+  })
 })

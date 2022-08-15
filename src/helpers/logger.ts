@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { createLogger, transports, format, Logger } from "winston";
 
 const logger: Logger = createLogger({

@@ -33,7 +33,7 @@ const validationErrorHandler = (req: Request, res: Response, errorMessage: strin
   logger.error("Input validation error", {method: req.method, statusCode: 400})
   const errorOutput: IError = {
     error: errorMessage, 
-    from: "fuerza-posts-api", 
+    from: "posts-api", 
     timestamp: Date.now()
   }
   res.status(400).json(errorOutput)

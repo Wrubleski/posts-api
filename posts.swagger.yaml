@@ -2,7 +2,7 @@ openapi: 3.0.0
 
 info:
   version: 0.0.1
-  title: "fuerza-posts-api"
+  title: "posts-api"
   description: "REST API for Posts management"
 
 tags:
@@ -58,14 +58,14 @@ paths:
                 response:
                   value:
                     error: 'Something went wrong. Please try again latter.'
-                    from: "fuerza-posts-api"
+                    from: "posts-api"
                     timestamp: 1660323373
     get:
       tags: 
         - Posts
       summary: "List Posts"
       description: "Retrieve multiple Posts using pagination"
-      operationId: getPaginatedPosts
+      operationId: listPosts
       parameters:
         - in: query
           name: index
@@ -114,7 +114,7 @@ paths:
                 response:
                   value:
                     error: 'Something went wrong. Please try again latter.'
-                    from: "fuerza-posts-api"
+                    from: "posts-api"
                     timestamp: 1660323373
   /posts/{id}:
     parameters:
@@ -158,7 +158,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 error: 'Post not found'
-                from: "fuerza-posts-api"
+                from: "posts-api"
                 timestamp: 1660323373
         '500':
           description: 'Internal server error'
@@ -168,7 +168,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 error: 'Something went wrong. Please try again latter.'
-                from: "fuerza-posts-api"
+                from: "posts-api"
                 timestamp: 1660323373
     put:
       tags: 
@@ -212,7 +212,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 error: 'Post not found'
-                from: "fuerza-posts-api"
+                from: "posts-api"
                 timestamp: 1660323373
         '500':
           description: 'Internal server error'
@@ -222,7 +222,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 error: 'Something went wrong. Please try again latter.'
-                from: "fuerza-posts-api"
+                from: "posts-api"
                 timestamp: 1660323373
     delete:
       tags: 
@@ -241,7 +241,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 error: 'Post not found'
-                from: "fuerza-posts-api"
+                from: "posts-api"
                 timestamp: 1660323373
         '500':
           description: 'Internal server error'
@@ -251,7 +251,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 error: 'Something went wrong. Please try again latter.'
-                from: "fuerza-posts-api"
+                from: "posts-api"
                 timestamp: 1660323373
 
 components:
@@ -285,7 +285,7 @@ components:
           example: "Validation Error."
         from:
           type: string
-          example: "fuerza-posts-api"
+          example: "posts-api"
         timestamp:
           type: number
           example: 1660323373

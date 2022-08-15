@@ -1,5 +1,5 @@
 {
-  "name": "desafio-fuerza",
+  "name": "posts-api",
   "version": "1.0.0",
   "description": "Posts CRUD API",
   "main": "index.js",

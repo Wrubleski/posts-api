@@ -2,23 +2,7 @@ import { populate } from "../../src/infrastructure/populateDatabase";
 import { connect, stop } from "../../src/infrastructure/dbConfig"
 import Posts from "../../src/models/posts";
 import { addPost, deletePost, getPostsById, listPosts, updatePost } from "../../src/controllers/posts";
-
-const postPayload = {
-  title: "Lorem Ipsum",
-  body: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-  tags: [
-    "Finibus Bonorum",
-    "Voluptatum Deleniti"
-  ]
-}
-
-const missingTitlePayload = {
-  body: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-  tags: [
-    "Finibus Bonorum",
-    "Voluptatum Deleniti"
-  ]
-}
+import { missingTitlePayload, postPayload } from "../utils/mocks";
 
 describe("Post Controller unit tests", () => {
   let id: string;

@@ -3,23 +3,7 @@ import app from "../../src/app"
 import { connect, stop } from "../../src/infrastructure/dbConfig"
 import Posts from "../../src/models/posts";
 import { populate } from "../../src/infrastructure/populateDatabase";
-
-const postPayload = {
-  title: "Lorem Ipsum",
-  body: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-  tags: [
-    "Finibus Bonorum",
-    "Voluptatum Deleniti"
-  ]
-}
-
-const missingTitlePayload = {
-  body: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-  tags: [
-    "Finibus Bonorum",
-    "Voluptatum Deleniti"
-  ]
-}
+import { missingTitlePayload, postPayload } from "../utils/mocks";
 
 const expectedPost: jest.Expect = expect.objectContaining({
   id: expect.any(String),

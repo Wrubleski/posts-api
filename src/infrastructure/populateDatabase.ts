@@ -3,7 +3,9 @@ import { IPost } from '../dtos/post';
 import logger from '../helpers/logger';
 import mockData from './mock.json';
 
-export const populate = async (postModel: Model<IPost>) => {
+export const populate: (postModel: Model<IPost>) => Promise<void> = async (
+  postModel: Model<IPost>,
+) => {
   const data: IPost[] = mockData as IPost[];
   await postModel.insertMany(data);
   logger.info('Database populated with mock data', {

@@ -17,7 +17,7 @@ export const addPost: (
   const document = await post.save().catch(next);
 
   if (!document) {
-    logger.error('Failed to save.', { method: req.method, statusCode: 500 });
+    logger.warn('Failed to save.', { method: req.method, statusCode: 500 });
     const errorOutput: IError = {
       error: 'Failed to save. Please try again later.',
       from: 'posts-api',

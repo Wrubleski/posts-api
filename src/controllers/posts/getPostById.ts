@@ -18,7 +18,7 @@ export const getPostById: (
   const document = await Posts.findById(id).catch(next);
 
   if (!document) {
-    logger.error('Not Found', { method: req.method, statusCode: 404 });
+    logger.warn('Not Found', { method: req.method, statusCode: 404 });
     const errorOutput: IError = {
       error: 'Not Found',
       from: 'posts-api',

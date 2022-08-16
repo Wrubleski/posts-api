@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/src/server.js",
     "dev": "nodemon src/server.ts",
-    "test": "jest --verbose ./test",
+    "test": "jest --verbose --silent ./test",
     "test-coverage": "jest --collect-coverage"
   },
   "author": "",

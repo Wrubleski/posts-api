@@ -1,8 +1,8 @@
 import request from 'supertest';
-import app from '../../src/app';
-import { connect, stop } from '../../src/infrastructure/dbConfig';
-import Posts from '../../src/models/posts';
-import { populate } from '../../src/infrastructure/populateDatabase';
+import app from '../../../src/app';
+import { connect, stop } from '../../../src/infrastructure/dbConfig';
+import Posts from '../../../src/models/posts';
+import { populate } from '../../../src/infrastructure/populateDatabase';
 import { missingTitlePayload, postPayload } from '../utils/mocks';
 
 const expectedPost: jest.Expect = expect.objectContaining({

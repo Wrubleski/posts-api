@@ -1,14 +1,12 @@
-import { populate } from '../../src/infrastructure/populateDatabase';
-import { connect, stop } from '../../src/infrastructure/dbConfig';
-import Posts from '../../src/models/posts';
-import {
-  addPost,
-  deletePost,
-  getPostsById,
-  listPosts,
-  updatePost,
-} from '../../src/controllers/posts';
+import { populate } from '../../../src/infrastructure/populateDatabase';
+import { connect, stop } from '../../../src/infrastructure/dbConfig';
+import Posts from '../../../src/models/posts';
 import { missingTitlePayload, postPayload } from '../utils/mocks';
+import { addPost } from '../../../src/controllers/posts/addPost';
+import { listPosts } from '../../../src/controllers/posts/listPosts';
+import { getPostById } from '../../../src/controllers/posts/getPostById';
+import { updatePost } from '../../../src/controllers/posts/updatePost';
+import { deletePost } from '../../../src/controllers/posts/deletePost';
 
 describe('Post Controller unit tests', () => {
   let id: string;
@@ -90,7 +88,7 @@ describe('Post Controller unit tests', () => {
         send: jest.fn(),
       } as any;
       const mNext = jest.fn();
-      await getPostsById(mReq, mRes, mNext);
+      await getPostById(mReq, mRes, mNext);
 
       expect(mRes.status).toHaveBeenCalledWith(200);
       expect(mRes.send).toHaveBeenCalled();
@@ -103,7 +101,7 @@ describe('Post Controller unit tests', () => {
         send: jest.fn(),
       } as any;
       const mNext = jest.fn();
-      await getPostsById(mReq, mRes, mNext);
+      await getPostById(mReq, mRes, mNext);
 
       expect(mNext).toHaveBeenCalled();
     });
@@ -115,7 +113,7 @@ describe('Post Controller unit tests', () => {
         send: jest.fn(),
       } as any;
       const mNext = jest.fn();
-      await getPostsById(mReq, mRes, mNext);
+      await getPostById(mReq, mRes, mNext);
 
       expect(mRes.status).toHaveBeenCalledWith(404);
       expect(mRes.send).toHaveBeenCalled();

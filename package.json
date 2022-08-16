@@ -4,8 +4,8 @@
   "description": "Posts CRUD API",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/server.js",
+    "build": "tsc",
+    "start": "node dist/src/server.js",
     "dev": "nodemon src/server.ts",
     "test": "jest"
   },

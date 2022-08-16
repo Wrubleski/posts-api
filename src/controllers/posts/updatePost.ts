@@ -21,7 +21,7 @@ export const updatePost: (
   }).catch(next);
 
   if (!document) {
-    logger.error('Not Found', { method: req.method, statusCode: 404 });
+    logger.warn('Not Found', { method: req.method, statusCode: 404 });
     const notFound: IError = {
       error: 'Not Found',
       from: 'posts-api',

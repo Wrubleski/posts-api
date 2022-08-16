@@ -16,7 +16,7 @@ export const deletePost: (
   const deleteResult = await Posts.deleteOne({ _id: id }).catch(next);
 
   if (deleteResult && deleteResult.deletedCount === 0) {
-    logger.error('Not Found', { method: req.method, statusCode: 404 });
+    logger.warn('Not Found', { method: req.method, statusCode: 404 });
     const notFound: IError = {
       error: 'Not Found',
       from: 'posts-api',

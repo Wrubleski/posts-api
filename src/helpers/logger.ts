@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { createLogger, transports, format, Logger } from "winston";
+import { createLogger, transports, format, Logger } from 'winston';
 
 const logger: Logger = createLogger({
   transports: [new transports.Console()],
@@ -10,9 +10,11 @@ const logger: Logger = createLogger({
     format.timestamp(),
     format.printf(({ timestamp, level, message, metadata }) => {
       // Using logfmt format. Helps with log aggregation tools.
-      return `timestamp=[${timestamp}] level=${level} message="${message}" metadata=${JSON.stringify(metadata)}`;
-    })
+      return `timestamp=[${timestamp}] level=${level} message="${message}" metadata=${JSON.stringify(
+        metadata,
+      )}`;
+    }),
   ),
 });
 
-export default logger
+export default logger;

@@ -1,8 +1,5 @@
 import request from 'supertest';
 import app from '../../../src/app';
-import { connect, stop } from '../../../src/infrastructure/dbConfig';
-import Posts from '../../../src/models/posts';
-import { populate } from '../../../src/infrastructure/populateDatabase';
 import { missingTitlePayload, postPayload } from '../utils/mocks';
 
 const expectedPost: jest.Expect = expect.objectContaining({
@@ -15,19 +12,17 @@ const expectedPost: jest.Expect = expect.objectContaining({
 describe('Post API Integration Tests', () => {
   const endpoint = '/api/posts/';
   let id: string;
-  beforeAll(async () => {
-    // Setup a database before running tests. Using in-memory mongodb server.
-    await connect();
-    await populate(Posts);
-  });
-
-  afterAll(async () => {
-    // Stop the databse after running the tests
-    await stop();
-  });
 
   it('should have a mocked app', async () => {
     expect(app).toBeDefined();
+  });
+
+  it('should return 404 whem trying to hit a non-existent resource', async () => {
+    return request(app)
+      .get('/qwerty')
+      .then((res) => {
+        expect(res.statusCode).toBe(404);
+      });
   });
 
   describe('addPost Tests', () => {

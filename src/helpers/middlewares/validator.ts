@@ -43,7 +43,7 @@ const validationErrorHandler: (
   res: Response,
   errorMessage: string | Record<string, unknown>,
 ) => {
-  logger.error('Input validation error', {
+  logger.warn('Input validation error', {
     method: req.method,
     statusCode: 400,
   });

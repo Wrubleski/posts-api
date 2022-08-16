@@ -135,7 +135,7 @@ paths:
         - Posts
       summary: "Search Post by UUID"
       description: "Return a single Post"
-      operationId: getPostsById
+      operationId: getPostById
       responses:
         '200':
           description: 'Return the post with matching UUID'

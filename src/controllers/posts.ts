@@ -3,23 +3,7 @@ import { IPost } from '../dtos/post';
 import Posts from '../models/posts';
 import logger from '../helpers/logger';
 import { IError } from '../dtos/error';
-import { Document, Types } from 'mongoose';
-
-const postBuilder: (
-  document: Document<unknown, any, IPost> &
-    IPost & {
-      _id: Types.ObjectId;
-    },
-) => IPost = (document) => {
-  const post: IPost = {
-    id: document._id.toString(),
-    title: document.title,
-    body: document.body,
-    tags: document.tags,
-  };
-
-  return post;
-};
+import { postBuilder } from '../helpers/factory';
 
 export const addPost: (
   req: Request,

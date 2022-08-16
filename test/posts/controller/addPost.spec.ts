@@ -1,21 +1,7 @@
-import { populate } from '../../../src/infrastructure/populateDatabase';
-import { connect, stop } from '../../../src/infrastructure/dbConfig';
-import Posts from '../../../src/models/posts';
 import { missingTitlePayload, postPayload } from '../utils/mocks';
 import { addPost } from '../../../src/controllers/posts/addPost';
 
 describe('Post Controller unit tests', () => {
-  beforeAll(async () => {
-    // Setup a database before running tests. Using in-memory mongodb server.
-    await connect();
-    await populate(Posts);
-  });
-
-  afterAll(async () => {
-    // Stop the databse after running the tests
-    await stop();
-  });
-
   describe('addPost test', () => {
     it('should fail to save with empty body', async () => {
       const mReq = { body: {} } as any;

@@ -1,15 +1,9 @@
-import { populate } from '../../../src/infrastructure/populateDatabase';
-import { connect, stop } from '../../../src/infrastructure/dbConfig';
-import Posts from '../../../src/models/posts';
 import { getPostById } from '../../../src/controllers/posts/getPostById';
 import { listPosts } from '../../../src/controllers/posts/listPosts';
 
 describe('Post Controller unit tests', () => {
   let id: string;
   beforeAll(async () => {
-    // Setup a database before running tests. Using in-memory mongodb server.
-    await connect();
-    await populate(Posts);
     const mReq = { body: {}, query: { size: 5, index: 0 } } as any;
     const mRes = {
       status: jest.fn().mockReturnThis(),
@@ -18,11 +12,6 @@ describe('Post Controller unit tests', () => {
     const mNext = jest.fn();
     await listPosts(mReq, mRes, mNext);
     id = mRes.send.mock.lastCall[0][0].id;
-  });
-
-  afterAll(async () => {
-    // Stop the databse after running the tests
-    await stop();
   });
 
   describe('getPostsById tests', () => {

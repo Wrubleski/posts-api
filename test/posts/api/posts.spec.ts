@@ -30,6 +30,14 @@ describe('Post API Integration Tests', () => {
     expect(app).toBeDefined();
   });
 
+  it('should return 404 whem trying to hit a non-existent resource', async () => {
+    return request(app)
+      .get('/qwerty')
+      .then((res) => {
+        expect(res.statusCode).toBe(404);
+      });
+  });
+
   describe('addPost Tests', () => {
     it('should return 201 whem creating a post', async () => {
       return request(app)

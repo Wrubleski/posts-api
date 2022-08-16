@@ -33,7 +33,11 @@ const PostPaginationQuery = z.object({
     .nonnegative({ message: 'index must be positive' }),
 });
 
-const validationErrorHandler = (
+const validationErrorHandler: (
+  req: Request,
+  res: Response,
+  errorMessage: string | Record<string, unknown>,
+) => void = (
   req: Request,
   res: Response,
   errorMessage: string | Record<string, unknown>,
@@ -50,11 +54,11 @@ const validationErrorHandler = (
   res.status(400).json(errorOutput);
 };
 
-export const paginationQueryValidator = (
+export const paginationQueryValidator: (
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) => void = (req: Request, res: Response, next: NextFunction) => {
   const query = {
     size: Number(req.query.size),
     index: Number(req.query.index),
@@ -95,11 +99,11 @@ export const paginationQueryValidator = (
   next();
 };
 
-export const postValidator = (
+export const postValidator: (
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) => void = (req: Request, res: Response, next: NextFunction) => {
   try {
     Post.parse(req.body);
   } catch (err) {
@@ -112,11 +116,11 @@ export const postValidator = (
   next();
 };
 
-export const postPathParamValidator = (
+export const postPathParamValidator: (
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) => void = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     validationErrorHandler(req, res, 'Id must have twenty four hex characters');

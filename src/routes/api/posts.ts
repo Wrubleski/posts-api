@@ -10,8 +10,11 @@ const router: Router = express.Router();
 /**
  * Using a higher order function as a caller to globally handle errors
  */
-const caller = (fn) => (req: Request, res: Response, next: NextFunction) =>
-  Promise.resolve(fn(req, res, next)).catch(next);
+const caller: (
+  fn: any,
+) => (req: Request, res: Response, next: NextFunction) => Promise<any> =
+  (fn) => (req: Request, res: Response, next: NextFunction) =>
+    Promise.resolve(fn(req, res, next)).catch(next);
 
 router
   .get('/posts', paginationQueryValidator, caller(controller.listPosts))

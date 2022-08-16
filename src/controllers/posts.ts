@@ -21,7 +21,11 @@ const postBuilder: (
   return post;
 };
 
-export const addPost = async (
+export const addPost: (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<void> = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -43,7 +47,11 @@ export const addPost = async (
   res.status(201).send(postBuilder(document));
 };
 
-export const getPostsById = async (
+export const getPostsById: (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<void> = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -66,23 +74,27 @@ export const getPostsById = async (
   res.status(200).send(postBuilder(document));
 };
 
-export const listPosts = async (
+export const listPosts: (
   req: Request,
   res: Response,
   _: NextFunction,
-) => {
+) => Promise<void> = async (req: Request, res: Response, _: NextFunction) => {
   const index: number = parseInt(req.query.index as string);
   const size: number = parseInt(req.query.size as string);
 
-  const documents: Array<IPost> = await Posts.find() //NOSONAR
-    .skip(index * size) //NOSONAR
-    .limit(size); //NOSONAR
+  const documents: Array<IPost> = await Posts.find()
+    .skip(index * size)
+    .limit(size);
 
   const output: IPost[] = documents.map(postBuilder);
   res.status(200).send(output);
 };
 
-export const updatePost = async (
+export const updatePost: (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<void> = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -108,7 +120,11 @@ export const updatePost = async (
   res.status(200).send(postBuilder(document));
 };
 
-export const deletePost = async (
+export const deletePost: (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<void> = async (
   req: Request,
   res: Response,
   next: NextFunction,

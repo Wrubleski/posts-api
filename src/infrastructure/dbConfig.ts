@@ -4,7 +4,7 @@ import logger from '../helpers/logger';
 
 let mongoServer: MongoMemoryServer;
 
-export const connect = async () => {
+export const connect: () => Promise<void> = async () => {
   mongoServer = await MongoMemoryServer.create();
   logger.info('Database is up and running', {
     action: 'mongodb memory server created',
@@ -16,7 +16,7 @@ export const connect = async () => {
   });
 };
 
-export const stop = async () => {
+export const stop: () => Promise<void> = async () => {
   mongoose.disconnect();
   await mongoServer.stop();
   logger.info('Successfully terminated database', {

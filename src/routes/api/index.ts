@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import posts from './posts';
 
-const routes = (app: Express) => {
+const routes: (app: Express) => void = (app: Express) => {
   app.use('/api', express.json(), posts);
 };
 

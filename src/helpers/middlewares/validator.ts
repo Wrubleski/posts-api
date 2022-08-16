@@ -22,7 +22,8 @@ const PostPaginationQuery = z.object({
     .int({
       message: 'size must be an integer',
     })
-    .nonnegative({ message: 'size must be positive' }),
+    .nonnegative({ message: 'size must be positive' })
+    .min(1, { message: 'size must be > 0' }),
   index: z
     .number({
       required_error: 'index is required',

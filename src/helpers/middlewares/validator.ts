@@ -100,7 +100,7 @@ export const paginationQueryValidator: (
   next();
 };
 
-export const postValidator: (
+export const postBodyValidator: (
   req: Request,
   res: Response,
   next: NextFunction,

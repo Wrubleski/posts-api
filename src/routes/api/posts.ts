@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response, Router } from 'express';
 import {
-  postValidator,
+  postBodyValidator,
   paginationQueryValidator,
   postPathParamValidator,
 } from '../../helpers/middlewares/validator';
@@ -18,11 +18,11 @@ const caller: (
 
 router
   .get('/posts', paginationQueryValidator, caller(controller.listPosts))
-  .post('/posts', postValidator, caller(controller.addPost))
+  .post('/posts', postBodyValidator, caller(controller.addPost))
   .get('/posts/:id', postPathParamValidator, caller(controller.getPostsById))
   .put(
     '/posts/:id',
-    postValidator,
+    postBodyValidator,
     postPathParamValidator,
     caller(controller.updatePost),
   )
